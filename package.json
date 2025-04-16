@@ -1,9 +1,1 @@
-{
-  "name": "titancloudai-frontend",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "build": "echo 'Building frontend...' && mkdir -p build && echo '<html><body><h1>Titan Cloud AI</h1></body></html>' > build/index.html"
-  },
-  "dependencies": {}
-}
+
