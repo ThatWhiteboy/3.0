@@ -1,0 +1,148 @@
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titan Cloud AI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+    }
+    header {
+      background: linear-gradient(90deg, #0ff, #00f);
+      padding: 2rem;
+      text-align: center;
+      color: #000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+    }
+    nav a:hover {
+      border-color: #0ff;
+    }
+    main {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 4rem;
+    }
+    footer {
+      background: #111;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #0ff;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    #chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #222;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0ff;
+      width: 250px;
+    }
+    #chatbot input {
+      width: 100%;
+      padding: 0.5rem;
+      background: #000;
+      color: #fff;
+      border: 1px solid #0ff;
+    }
+    #chat-response {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #0ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Titan Cloud AI</h1>
+    <p>The future of fully autonomous AI-powered business is here.</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="about">
+      <h2>About Titan Cloud AI</h2>
+      <p>We built an unstoppable, fully AI-driven business engine—automating sales, marketing, support, optimization, and infrastructure with zero human oversight.</p>
+    </section>
+    <section id="services">
+      <h2>Services</h2>
+      <p>Custom AI chatbots. Self-sustaining business automations. Scalable AI tools. If your business isn’t run by AI yet, it’s already behind.</p>
+    </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Need something built or integrated by AI? Reach out—our autonomous agents are listening 24/7.</p>
+      <p>Email: support@titancloudai.com</p>
+    </section>
+  </main>
+  <div id="chatbot">
+    <p><strong>Ask Titan AI:</strong></p>
+    <input type="text" id="chat-input" placeholder="Type your question...">
+    <div id="chat-response"></div>
+  </div>
+  <footer>
+    <a href="/terms.html" target="_blank">Terms of Service</a>
+    <a href="/privacy.html" target="_blank">Privacy Policy</a>
+    <p>&copy; 2025 Titan Cloud AI. All systems monitored by autonomous AI. Stay futuristic.</p>
+  </footer>
+  <script>
+    const input = document.getElementById('chat-input');
+    const responseBox = document.getElementById('chat-response');
+
+    input.addEventListener('keypress', async (e) => {
+      if (e.key === 'Enter') {
+        const userInput = input.value;
+        responseBox.textContent = "Thinking...";
+
+        const reply = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer YOUR_OPENAI_API_KEY`
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [{ role: 'user', content: userInput }]
+          })
+        }).then(res => res.json());
+
+        const botReply = reply.choices?.[0]?.message?.content || 'No response';
+        responseBox.textContent = botReply;
+        input.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
