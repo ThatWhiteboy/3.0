@@ -4,5 +4,6 @@
   "private": true,
   "scripts": {
     "build": "mkdir -p build && cp index.html build/index.html && cp titancloudai_logo.webp build/"
-  }
+  },
+  "dependencies": {}
 }
